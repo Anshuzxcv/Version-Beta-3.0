@@ -4,23 +4,22 @@ const dotenv=require('dotenv');
 dotenv.config({path:'./config.env'});
 
 
-//const DB = process.env.DATABASE;
-
 mongoose
-  .connect("mongodb+srv://aman:aman@cluster0.hhnva.mongodb.net/db?retryWrites=true&w=majority&ssl=true", {
+  .connect(process.env.database, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false
   })
   .then(()=>{
-    console.log("Connected to the Database. Yayzow!");
+    console.log("Connected to the Database");
   })
   .catch(err => {
     console.log(err);
   });
  
 
-app.listen(3000,()=>{
-    console.log('Server started');
+const port =3000;
+app.listen(port,()=>{
+    console.log(`Server started on ${port}`);
 })
