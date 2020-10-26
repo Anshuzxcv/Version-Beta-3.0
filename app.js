@@ -12,10 +12,6 @@ app.use(bodyParser.raw({ type: 'application/vnd.custom-type' }));
 app.use(bodyParser.text({ type: 'text/html' }));
 
 
-//user = patient
-//app.use('/user',patientrouter);
-
-
 app.use('/patient/', patientRouter);
 app.use('/doctor/', doctorRouter);
 

@@ -1,9 +1,13 @@
 const express = require('express');
 const router = express.Router();
 
+const patientController = require('../controller/patientcontroler');
+
+router.get('/',patientController.homePage);
+
+
 const multer = require('multer');
 var upload = multer();
-
 router.use(upload.array());
 
 
@@ -12,16 +16,12 @@ router.get('/user-profile',(req,res)=>{
 })
 
 
-////////////////////////////////woorking on upload profile section
+////////////////////////////////working on upload profile section
 router.post('/update-profile',(req,res)=>{
     const data = req.body;
     console.log(req.body);
     res.send('okk');
 })
 
-
-const patientController = require('../controller/patientcontroler');
-
-router.get('/',patientController.homePage);
 
 module.exports = router;
