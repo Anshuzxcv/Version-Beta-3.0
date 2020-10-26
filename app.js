@@ -1,11 +1,12 @@
 const express = require('express');
 const app = express();
-
+const patientRouter = require('./router/patientrouter');
+const doctorRouter = require('./router/doctorrouter');
 app.use(express.static("public"));
 
-app.get('/',(req,res)=>{
-    res.send('hello');
-})
+app.use('/patient/', patientRouter);
+app.use('/doctor/', doctorRouter);
+
 
 module.exports = app;
 
