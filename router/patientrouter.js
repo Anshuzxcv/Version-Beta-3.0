@@ -20,5 +20,8 @@ router.post('/update-profile',(req,res)=>{
 })
 
 
+const patientController = require('../controller/patientcontroler');
+
+router.get('/',patientController.homePage);
 
 module.exports = router;

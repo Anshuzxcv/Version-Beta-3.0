@@ -1,9 +1,9 @@
 const express = require('express');
 const app = express();
 var bodyParser = require('body-parser');
-const patientrouter = require('./router/patientrouter');
 
-
+const patientRouter = require('./router/patientrouter');
+const doctorRouter = require('./router/doctorrouter');
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -13,12 +13,12 @@ app.use(bodyParser.text({ type: 'text/html' }));
 
 
 //user = patient
-app.use('/user',patientrouter);
+//app.use('/user',patientrouter);
 
 
-app.get('/',(req,res)=>{
-    res.send('hello');
-})
+app.use('/patient/', patientRouter);
+app.use('/doctor/', doctorRouter);
+
 
 module.exports = app;
 
