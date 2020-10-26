@@ -9,7 +9,7 @@ router.get('/user-profile',(req,res)=>{
     res.send('heello');
 })
 
-router.post('/update-profile',patientController.uploadPatientProfileImg,patientController.updateProfile);
+router.post('/update-profile',patientController.uploadPatientProfileImg,patientController.resizeProfileImage,patientController.updateProfile);
 
 
 module.exports = router;
