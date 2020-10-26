@@ -6,11 +6,10 @@ var upload = multer();
 
 router.use(upload.array());
 
+
 router.get('/user-profile',(req,res)=>{
     res.send('heello');
 })
-
-
 
 
 ////////////////////////////////woorking on upload profile section
