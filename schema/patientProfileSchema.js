@@ -3,23 +3,23 @@ const mongoose = require('mongoose');
 const patientSchema = new mongoose.Schema({
     name: {
         type: String,
-        required:[true],
+        required:[true,"Please enter name"],
     },
     email:{
         type:String,
-        required:[true],
+        required:[true,"please enter email"],
         unique:true,
     },
     mobile:{
         type:String,
         unique:true,
-        required:true
+        required:[true,"please enter mobile"]
     },
     age : {
         type: String,
         default:"0"
     },
-    profile_pic: {
+    profile_img: {
         type: String,
         default:""
     },
@@ -53,7 +53,5 @@ const patientSchema = new mongoose.Schema({
         type:Date
     }
 });
-
-
 
 exports.patient = mongoose.model('patient', patientSchema);
