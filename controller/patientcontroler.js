@@ -29,13 +29,12 @@ exports.updateProfile = async(req,res)=>{
     try{
         const currpatient = await patient.findOne({email:req.body.email});
         const oldprofile_img = currpatient.profile_img;
-        currpatient.save();
-        
         if(req.file){
             currpatient.profile_img=req.file.filename;
+            currpatient.save();
             fs.unlinkSync(`${__dirname}/../profile_pic/${oldprofile_img}`,(err)=>{
                 if(err)res.send (err);
-            });        
+            });
         }
         res.send(currpatient);
     }
