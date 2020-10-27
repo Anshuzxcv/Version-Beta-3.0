@@ -29,12 +29,23 @@ exports.updateProfile = async(req,res)=>{
     try{
         const currpatient = await patient.findOne({email:req.body.email});
         const oldprofile_img = currpatient.profile_img;
-        //console.log(oldprofile_img);
         
         if(req.file){
             currpatient.profile_img=req.file.filename;
-            console.log(`${__dirname}../profile_pic/${oldprofile_img}.jpeg`);
-            fs.unlink(`${__dirname}/../profile_pic/${oldprofile_img}.jpeg`);
+            //console.log(req.file);
+            //console.log(`${__dirname}../profile_pic/${oldprofile_img}.jpeg`);
+            //fs.unlink(`${__dirname}/../profile_pic/${oldprofile_img}.jpeg`);
+            const path =`${__dirname}`;
+            console.log(path);
+
+
+            // fs.readdir(`${__dirname}../`, (err, files) => {
+            //     files.forEach(file => {
+            //       console.log(file);
+            //     });
+            // })
+        
+        
         }
 
         currpatient.save();
