@@ -3,17 +3,17 @@ const mongoose = require('mongoose');
 const patientSchema = new mongoose.Schema({
     name: {
         type: String,
-        required:[true,"Please enter name"],
+        //required:[true,"Please enter name"],
     },
     email:{
         type:String,
-        required:[true,"please enter email"],
+        //required:[true,"please enter email"],
         unique:true,
     },
     mobile:{
         type:String,
         unique:true,
-        required:[true,"please enter mobile"]
+        //required:[true,"please enter mobile"]
     },
     age : {
         type: String,
@@ -54,4 +54,4 @@ const patientSchema = new mongoose.Schema({
     }
 });
 
-exports.patient = mongoose.model('patient', patientSchema);
+module.exports = mongoose.model('patient', patientSchema);

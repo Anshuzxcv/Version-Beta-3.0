@@ -1,7 +1,7 @@
-const patientSchema = require('../schema/patientProfileSchema');
+const patient = require('../schema/patientProfileSchema');
 const multer = require('multer');
 const sharp = require('sharp');
-
+const fs = require('fs');
 
 //////////////////////////////////////////////////////////////////////// for profile pic upload and resize using multer and sharp package
 const multerStorage = multer.memoryStorage();
@@ -26,10 +26,26 @@ exports.resizeProfileImage = (req,res,next)=>{
 
 
 exports.updateProfile = async(req,res)=>{
-    const profile_img = req.file.filename;
-    console.log(profile_img);
-    res.send('okk');
+    try{
+        const currpatient = await patient.findOne({email:req.body.email});
+        const oldprofile_img = currpatient.profile_img;
+        //console.log(oldprofile_img);
+        
+        if(req.file){
+            currpatient.profile_img=req.file.filename;
+            console.log(`${__dirname}../profile_pic/${oldprofile_img}.jpeg`);
+            fs.unlink(`${__dirname}/../profile_pic/${oldprofile_img}.jpeg`);
+        }
+
+        currpatient.save();
+        res.send(currpatient);
+    }
+    catch(err){
+        res.send(err);
+    }
 }
+
+
 exports.homePage = async(req,res)=>{
     res.send('hello patient');
 }
