@@ -27,7 +27,7 @@ router.post('/update-profile', (req, res) => {
 
 //////////////SignUp Router
 router.post('/signup', (req, res) => {
-    bcrypt.hash(req.body.email, 10, (err, hash) => {
+    bcrypt.hash(req.body.password, 10, (err, hash) => {
         if (err) {
             return res.status(500).json({
                 error: err
@@ -40,13 +40,23 @@ router.post('/signup', (req, res) => {
                 mobile: req.body.mobile,
                 password: hash
             });
-            Patient.save();
+            Patient
+                .save()
+                .then(result => {
+                    console.log(result);
+                    res.status(201).json({
+                        message: 'User created'
+                    });
+                })
+                .catch(err => {
+                    console.log(err);
+                    res.status(500).json({
+                        error: err
+                    });
+                });
 
         }
     })
-
-
 });
-
 
 module.exports = router;
