@@ -1,4 +1,5 @@
 const patient = require('../schema/patientProfileSchema');
+const tips = require('../schema/tipsSchema');
 const multer = require('multer');
 const sharp = require('sharp');
 const fs = require('fs');
@@ -23,11 +24,15 @@ exports.resizeProfileImage = (req,res,next)=>{
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
 exports.updateProfile = async(req,res)=>{
     try{
         const currpatient = await patient.findOne({email:req.body.email});
+        if(req.body.age) currpatient.age = req.body.age;
+        if(req.body.gender) currpatient.age = req.body.gender;
+        if(req.body.height) currpatient.age = req.body.height;
+        if(req.body.weight) currpatient.age = req.body.weight;
+        currpatient.save();
+
         const oldprofile_img = currpatient.profile_img;
         if(req.file){
             currpatient.profile_img=req.file.filename;
@@ -37,6 +42,31 @@ exports.updateProfile = async(req,res)=>{
             });
         }
         res.send(currpatient);
+    }
+    catch(err){
+        res.send(err);
+    }
+}
+
+exports.createtips=async(req,res)=>{
+    try{
+        if(req.body.tips)
+        {const newtips = tips.create(req.body.tips);
+        res.send(newtips);}
+        else res.send('data not found');
+    }
+    catch(err){
+        res.send(err);
+    }
+}
+
+function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+}
+exports.tip=async(req,res)=>{
+    try{
+        const alltips  = tips.find();
+        res.send (alltips[getRandomInt((await alltips).length())]);
     }
     catch(err){
         res.send(err);
