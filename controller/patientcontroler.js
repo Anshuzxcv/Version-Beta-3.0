@@ -1,8 +1,10 @@
 const patient = require('../schema/patientProfileSchema');
 const tips = require('../schema/tipsSchema');
+
 const multer = require('multer');
 const sharp = require('sharp');
 const fs = require('fs');
+const bcrypt = require('bcryptjs');
 
 //////////////////////////////////////////////////////////////////////// for profile pic upload and resize using multer and sharp package
 const multerStorage = multer.memoryStorage();
@@ -47,6 +49,43 @@ exports.updateProfile = async(req,res)=>{
     catch(err){
         res.send(err);
     }
+}
+
+
+/////////////////////////////////////////////////////////////////////////////////////////SIGNUP
+exports.signup = (req, res) => {
+    bcrypt.hash(req.body.password, 10, (err, hash) => {
+        if (err) {
+            return res.status(500).json({error: err});
+        } else {
+            const Patient =new patient({
+                name: req.body.name,
+                email: req.body.email,
+                mobile: req.body.mobile,
+                password: hash
+            });
+            Patient
+                .save()
+                .then(result => {
+                    const verifyToken = Patient.createPasswordResetToken();
+                    const verifyURL = `${req.protocol}://${req.get('host')}/users/verifyemail/${resetToken}`;
+                    res.status(201).json({
+                        message: 'User created'
+                    });
+
+                })
+                .catch(err => {
+                    res.status(500).json({
+                        error: err
+                    });
+                });
+        }
+    })
+}
+
+
+exports.get_bmi = async(req,res)=>{
+    
 }
 
 exports.homePage = async(req,res)=>{

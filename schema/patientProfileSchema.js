@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const crypto = require('crypto');
+
 
 const patientSchema = new mongoose.Schema({
     name: {
@@ -56,5 +58,15 @@ const patientSchema = new mongoose.Schema({
         type:Date
     }
 });
+
+patientSchema.methods.createPasswordResetToken = function() {
+    const resetToken = crypto.randomBytes(32).toString('hex');
+    this.passwordResetToken = crypto
+      .createHash('sha256')
+      .update(resetToken)
+      .digest('hex');
+    this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
+    return resetToken;
+};
 
 module.exports = mongoose.model('patient', patientSchema);
