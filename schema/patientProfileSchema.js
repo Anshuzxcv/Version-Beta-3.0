@@ -11,7 +11,8 @@ const patientSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
     },
     mobile: {
         type: String,
@@ -63,4 +64,5 @@ const patientSchema = new mongoose.Schema({
 
 
 
-exports.patient = mongoose.model('patient', patientSchema);
+//exports.patient = mongoose.model('patient', patientSchema);
+module.exports = mongoose.model('patient', patientSchema);
