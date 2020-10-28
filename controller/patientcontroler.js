@@ -31,7 +31,6 @@ exports.updateProfile = async(req,res)=>{
         if(req.body.gender) currpatient.age = req.body.gender;
         if(req.body.height) currpatient.age = req.body.height;
         if(req.body.weight) currpatient.age = req.body.weight;
-        currpatient.save();
 
         const oldprofile_img = currpatient.profile_img;
         if(req.file){
@@ -41,6 +40,8 @@ exports.updateProfile = async(req,res)=>{
                 if(err)res.send (err);
             });
         }
+        else currpatient.save();
+
         res.send(currpatient);
     }
     catch(err){
