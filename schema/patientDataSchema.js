@@ -2,21 +2,21 @@ const mongoose = require('mongoose');
 
 const patientSchema = {
     name: String,
-    age : Number,
+    age: Number,
     pic: String
 }
 
 const reportSchema = {
-    dr_name:{ 
-        type:String,
+    dr_name: {
+        type: String,
         required: true
     },
-    date: { 
-        type:Date,
+    date: {
+        type: Date,
         required: true
     },
-    report: { 
-        type:String,
+    report: {
+        type: String,
         required: true
     },
 }
