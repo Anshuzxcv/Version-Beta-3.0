@@ -10,6 +10,9 @@ const patientSchema = new mongoose.Schema({
         //required:[true,"please enter email"],
         unique:true,
     },
+    password:{
+        type:String
+    },
     mobile:{
         type:String,
         unique:true,
