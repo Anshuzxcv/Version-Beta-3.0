@@ -13,6 +13,14 @@ app.use(bodyParser.text({ type: 'text/html' }));
 
 
 app.use('/patient/', patientRouter);
+/*app.post('/', (req, res) => {
+    const name = req.body.name;
+    const email = req.body.email;
+
+    console.log("name is : ", name);
+    console.log("email is : ", email);
+    res.send('found');
+})*/
 app.use('/doctor/', doctorRouter);
 
 

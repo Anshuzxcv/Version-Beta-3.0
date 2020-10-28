@@ -3,54 +3,54 @@ const mongoose = require('mongoose');
 const patientSchema = new mongoose.Schema({
     name: {
         type: String,
-        required:[true],
+        required: [true],
     },
-    email:{
-        type:String,
-        required:[true],
-        unique:true,
-    },
-    mobile:{
-        type:String,
-        unique:true,
-        required:true
-    },
-    age : {
+    email: {
         type: String,
-        default:"0"
+        required: [true],
+        unique: true,
+    },
+    mobile: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    age: {
+        type: String,
+        default: "0"
     },
     profile_pic: {
         type: String,
-        default:""
+        default: ""
     },
-    gender:{
-        type:String,
-        default:"M"
+    gender: {
+        type: String,
+        default: "M"
     },
-    height:{
-        type:Number,
-        default:""
+    height: {
+        type: Number,
+        default: ""
     },
-    weight:{
-        type:Number,
-        default:""
+    weight: {
+        type: Number,
+        default: ""
     },
-    status:{
-        type:String,
-        default:"inactive"
+    status: {
+        type: String,
+        default: "inactive"
     },
-    createdAt:{
-        type:Date,
-        default:Date.now()
+    createdAt: {
+        type: Date,
+        default: Date.now()
     },
-    token:{
-        type:String
+    token: {
+        type: String
     },
-    passwordResetToken:{
-        type:String
+    passwordResetToken: {
+        type: String
     },
-    passwordResetExpires:{
-        type:Date
+    passwordResetExpires: {
+        type: Date
     }
 });
 
