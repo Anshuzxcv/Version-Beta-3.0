@@ -1,27 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
-const patientController = require('../controller/patientcontroler');
+const patientController = require('../controller/patientReportController');
 
-router.get('/',patientController.homePage);
+router.post("/reports", patientController.uploadImages, patientController.resizeImages, patientController.uploadReport);
 
-
-const multer = require('multer');
-var upload = multer();
-router.use(upload.array());
-
-
-router.get('/user-profile',(req,res)=>{
-    res.send('heello');
-})
-
-
-////////////////////////////////working on upload profile section
-router.post('/update-profile',(req,res)=>{
-    const data = req.body;
-    console.log(req.body);
-    res.send('okk');
-})
-
+router.put('/reports', patientController.uploadImages, patientController.resizeImages, patientController.updateReport);
 
 module.exports = router;
