@@ -1,10 +1,8 @@
 const express = require('express');
 const router = express.Router();
-//const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+
 
 const patientController = require('../controller/patientcontroler');
-const patient = require('../schema/patientProfileSchema');
 router.get('/', patientController.homePage);
 
 
@@ -25,38 +23,15 @@ router.post('/update-profile', (req, res) => {
     res.send('okk');
 })
 
-//////////////SignUp Router
-router.post('/signup', (req, res) => {
-    bcrypt.hash(req.body.password, 10, (err, hash) => {
-        if (err) {
-            return res.status(500).json({
-                error: err
-            });
+//Signup Router
+router.post("/signup", patientController.patient_signup);
 
-        } else {
-            const Patient = new patient({
-                name: req.body.name,
-                email: req.body.email,
-                mobile: req.body.mobile,
-                password: hash
-            });
-            res.send('hello');
-            // Patient
-            //     .save()
-            //     .then(result => {
-            //         console.log(result);
-            //         res.status(201).json({
-            //             message: 'User created'
-            //         });
-            //     })
-            //     .catch(err => {
-            //         console.log(err);
-            //         res.status(500).json({
-            //             error: err
-            //         });
-            //     });
-        }
-    })
-});
+
+//Login Router
+router.post("/login", patientController.patient_login);
+
+//Delete Router
+router.delete("/:userId", patientController.patient_delete);
+
 
 module.exports = router;
