@@ -1,11 +1,17 @@
+const tips = require('../schema/tipsSchema');
+
 exports.createtips=async(req,res)=>{
     try{
-        if(req.body.tips)
-        {const newtips = tips.create(req.body.tips);
-        res.send(newtips);}
+        console.log(req.body);
+        if(req.body.tip)
+        {
+        const newtips =await tips.create(req.body);
+        res.send(newtips);
+        }
         else res.send('data not found');
     }
     catch(err){
+        console.log(err);
         res.send(err);
     }
 }
@@ -15,8 +21,11 @@ function getRandomInt(max) {
 }
 exports.tip=async(req,res)=>{
     try{
-        const alltips  = tips.find();
-        res.send (alltips[getRandomInt((await alltips).length())]);
+        const alltips  = await tips.find();
+        let cnt =0;
+        alltips.map((el)=>{cnt++;})
+        temp = await getRandomInt(cnt);
+        res.send(alltips[temp]);
     }
     catch(err){
         res.send(err);
