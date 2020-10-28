@@ -21,5 +21,5 @@ const reportSchema = {
     },
 }
 
-exports.patient = mongoose.model('patient', patientSchema);
+//exports.patient = mongoose.model('patient', patientSchema);
 exports.report = mongoose.model('report', reportSchema);

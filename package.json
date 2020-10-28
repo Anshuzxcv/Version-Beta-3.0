@@ -19,6 +19,7 @@
   "homepage": "https://github.com/Anshuzxcv/Version-Beta-3.0-Backend-#readme",
   "dependencies": {
     "bcrypt": "^5.0.0",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
