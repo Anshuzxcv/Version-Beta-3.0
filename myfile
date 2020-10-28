@@ -1,0 +1,9 @@
+// const multerStorage = multer.diskStorage({
+//     destination:(req,file,cb)=>{
+//         cb(null,'profile_pic/');
+//     },
+//     filename:(req,file,cb)=>{
+//         const extension = file.mimetype.split('/')[1];
+//         cb(null,`patient-${req.body.name}-${Date.now()}.${extension}`);
+//     }
+// })

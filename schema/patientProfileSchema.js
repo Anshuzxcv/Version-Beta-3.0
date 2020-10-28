@@ -2,18 +2,21 @@ const mongoose = require('mongoose');
 
 const patientSchema = new mongoose.Schema({
     name: {
-        type: String,
-        required:[true],
+        type: String
+        //required:[true],
     },
     email:{
         type:String,
-        required:[true],
-        unique:true,
+        //required:[true],
+        unique:true
     },
     mobile:{
         type:String,
-        unique:true,
-        required:true
+        unique:true
+        //required:true
+    },
+    password:{
+        type:String
     },
     age : {
         type: String,
