@@ -1,6 +1,7 @@
 const Report = require('../schema/patientReportSchema');
 const multer = require("multer");
 const sharp = require("sharp");
+const fs = require('fs');
 
 const multerStorage = multer.memoryStorage();
 
@@ -87,3 +88,32 @@ exports.updateReport = async(req,res)=>{
         res.send(err);
     }
 }
+
+exports.deleteReports = async(req,res)=>{
+    try{
+        const currReport = await Report.report.findOne({_id:req.query.id});
+        await currReport.reports.map(async image =>{
+            fs.unlink(`${__dirname}/../upload/reports/${image}`, (err)=>{
+            console.log(err);
+        });
+        })
+        await currReport.remove();
+    }
+    catch(err){
+        res.send(err);
+    }
+}
+
+// exports.deleteReport = async(req,res)=>{
+//     try{
+//         const currReport = await Report.report.findOne({_id:req.query.id});
+//         fs.unlink(`${__dirname}/../upload/reports/${req.query.img}`, (err)=>{
+//             console.log(err);
+//         });
+//         await currReport.pull({reports:req.query.img});
+//         res.send('deleted!');
+//     }
+//     catch(err){
+//         res.send(err);
+//     }
+// }
