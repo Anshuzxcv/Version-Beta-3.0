@@ -64,44 +64,35 @@ exports.homePage = async (req, res) => {
 }
 
 exports.patient_signup = (req, res, next) => {
-    patient.find({ email: req.body.email })
-        .exec()
-        .then(Patient => {
-            if (Patient.length >= 1) {
-                return res.status(409).json({
-                    message: "Mail exists"
+    bcrypt.hash(req.body.password, 10, (err, hash) => {
+        if (err) {
+            return res.status(500).json({error: err});
+        } else {
+            const Patient =new patient({
+                name: req.body.name,
+                email: req.body.email,
+                mobile: req.body.mobile,
+                password: hash
+            });
+            const verifyToken = Patient.createPasswordResetToken();
+            const verifyURL = `${req.protocol}://${req.get('host')}/patient/verifyemail/${verifyToken}`;                     
+            Patient
+                .save()
+                .then(result => {
+                    new email(Patient,verifyURL).sendWelcome();
+
+                    res.status(201).json({
+                        message: 'User created'
+                    });
+
+                })
+                .catch(err => {
+                    res.status(500).json({
+                        error: err
+                    });
                 });
-            } else {
-                bcrypt.hash(req.body.password, 10, (err, hash) => {
-                    if (err) {
-                        return res.status(500).json({
-                            error: err
-                        });
-                    } else {
-                        const Patient = new patient({
-                            name: req.body.name,
-                            email: req.body.email,
-                            mobile: req.body.mobile,
-                            password: hash
-                        });
-                        Patient
-                            .save()
-                            .then(result => {
-                                console.log(result);
-                                res.status(201).json({
-                                    message: "User created"
-                                });
-                            })
-                            .catch(err => {
-                                console.log(err);
-                                res.status(500).json({
-                                    error: err
-                                });
-                            });
-                    }
-                });
-            }
-        });
+        }
+    })
 }
 
 exports.patient_login = (req, res, next) => {
