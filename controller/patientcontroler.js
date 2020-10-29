@@ -69,7 +69,9 @@ exports.signup = (req, res) => {
                 .save()
                 .then(result => {
                     const verifyToken = Patient.createPasswordResetToken();
-                    const verifyURL = `${req.protocol}://${req.get('host')}/users/verifyemail/${resetToken}`;
+                    const verifyURL = `${req.protocol}://${req.get('host')}/patient/verifyemail/${verifyToken}`;                     
+                    new email(Patient,verifyURL).sendWelcome();
+                    
                     res.status(201).json({
                         message: 'User created'
                     });

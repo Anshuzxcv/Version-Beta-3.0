@@ -2,9 +2,9 @@ const nodemailer = require('nodemailer');
 const htmlToText = require('html-to-text');
 
 module.exports = class Email {
-  constructor(user, url) {
-    this.to = user.email;
-    this.firstName = user.name.split(' ')[0];
+  constructor(patient, url) {
+    this.to = patient.email;
+    this.firstName = patient.name;
     this.url = url;
     this.from = `Aman Bharti <${process.env.EMAIL_FROM}>`;
   }
@@ -20,9 +20,8 @@ module.exports = class Email {
   }
 
   async send(template, subject) {
-    
-    const html = this.url
 
+    const html = this.url
     const mailOptions = {
       from: this.from,
       to: this.to,
@@ -35,7 +34,7 @@ module.exports = class Email {
   }
 
   async sendWelcome() {
-    await this.send('welcome', 'Welcome to the Natours Family!');
+    await this.send('welcome', 'Welcome to the Health tracker App!');
   }
 
   async sendPasswordReset() {
