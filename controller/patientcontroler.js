@@ -1,5 +1,6 @@
 const patient = require('../schema/patientProfileSchema');
 const tips = require('../schema/tipsSchema');
+const email = require('../utils/mail');
 
 const multer = require('multer');
 const sharp = require('sharp');
