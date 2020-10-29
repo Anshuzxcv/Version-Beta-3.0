@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const crypto = require('crypto');
+
 
 const patientSchema = new mongoose.Schema({
 
@@ -27,7 +29,7 @@ const patientSchema = new mongoose.Schema({
         type: String,
         default: "0"
     },
-    profile_pic: {
+    profile_img: {
         type: String,
         default: ""
     },
@@ -62,7 +64,14 @@ const patientSchema = new mongoose.Schema({
     }
 });
 
+patientSchema.methods.createPasswordResetToken = function() {
+    const resetToken = crypto.randomBytes(32).toString('hex');
+    this.passwordResetToken = crypto
+      .createHash('sha256')
+      .update(resetToken)
+      .digest('hex');
+    this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
+    return resetToken;
+};
 
-
-//exports.patient = mongoose.model('patient', patientSchema);
 module.exports = mongoose.model('patient', patientSchema);

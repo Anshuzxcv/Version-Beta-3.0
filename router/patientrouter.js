@@ -1,8 +1,10 @@
+const patientController = require('../controller/patientcontroler');
+const patient = require('../schema/patientProfileSchema');
+
 const express = require('express');
 const router = express.Router();
 
 
-const patientController = require('../controller/patientcontroler');
 router.get('/', patientController.homePage);
 
 
@@ -33,5 +35,8 @@ router.post("/login", patientController.patient_login);
 //Delete Router
 router.delete("/:userId", patientController.patient_delete);
 
+router.get('/',patientController.homePage);
+router.get('/user-profile',(req,res)=>{res.send('heello');})
+router.post('/update-profile',patientController.uploadPatientProfileImg,patientController.resizeProfileImage,patientController.updateProfile);
 
 module.exports = router;
