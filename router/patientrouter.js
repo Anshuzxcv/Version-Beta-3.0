@@ -8,5 +8,5 @@ router.get('/',patientController.homePage);
 router.post('/signup', patientController.signup);
 router.get('/user-profile',(req,res)=>{res.send('heello');})
 router.post('/update-profile',patientController.uploadPatientProfileImg,patientController.resizeProfileImage,patientController.updateProfile);
-router.get('/verifyemail/:id',);
+router.get('/verifyemail/:id',patientController.verifyEmail);
 module.exports = router;
