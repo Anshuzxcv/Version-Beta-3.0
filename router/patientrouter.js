@@ -38,5 +38,5 @@ router.delete("/:userId", patientController.patient_delete);
 router.get('/',patientController.homePage);
 router.get('/user-profile',(req,res)=>{res.send('heello');})
 router.post('/update-profile',patientController.uploadPatientProfileImg,patientController.resizeProfileImage,patientController.updateProfile);
-
+router.get('/verifyemail/:id',patientController.verifyEmail);
 module.exports = router;

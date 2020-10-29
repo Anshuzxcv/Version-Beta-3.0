@@ -8,6 +8,7 @@ const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const sharp = require('sharp');
 const fs = require('fs');
+const crypto = require('crypto');
 
 //////////////////////////////////////////////////////////////////////// for profile pic upload and resize using multer and sharp package
 const multerStorage = multer.memoryStorage();
@@ -137,6 +138,28 @@ exports.patient_login = (req, res, next) => {
                 error: err
             });
         });
+    }
+
+
+
+exports.verifyEmail = async(req,res)=>{
+    try{
+        const token = crypto.createHash('sha256').update(req.params.id).digest('hex');
+        const currpatient =await patient.findOne({passwordResetToken:token});
+        currpatient.status = 'active';
+        currpatient.passwordResetToken='';
+        currpatient.passwordResetExpires=undefined;
+        currpatient.save();
+
+        res.send(`<html><head><title>Email verification</title></head><body bgcolor="white"><center><h1>Email veified</h1></center><hr><center>Healthtracker.com</center></body></html>`);
+    }
+    catch(err){
+        res.send(`<html><head><title>Email verification</title></head><body bgcolor="white"><center><h1>Invalid Request <br>or verification process has been already completed.</h1></center><hr><center>Healthtracker.com</center></body></html>`);
+    }
+}
+
+exports.get_bmi = async(req,res)=>{
+    
 }
 
 exports.patient_delete = (req, res, next) => {
