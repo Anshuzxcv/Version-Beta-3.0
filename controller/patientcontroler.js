@@ -65,13 +65,13 @@ exports.signup = (req, res) => {
                 mobile: req.body.mobile,
                 password: hash
             });
+            const verifyToken = Patient.createPasswordResetToken();
+            const verifyURL = `${req.protocol}://${req.get('host')}/patient/verifyemail/${verifyToken}`;                     
             Patient
                 .save()
                 .then(result => {
-                    const verifyToken = Patient.createPasswordResetToken();
-                    const verifyURL = `${req.protocol}://${req.get('host')}/patient/verifyemail/${verifyToken}`;                     
                     new email(Patient,verifyURL).sendWelcome();
-                    
+
                     res.status(201).json({
                         message: 'User created'
                     });
@@ -86,6 +86,9 @@ exports.signup = (req, res) => {
     })
 }
 
+exports.verifyEmail = async(req,res)=>{
+    
+}
 
 exports.get_bmi = async(req,res)=>{
     
