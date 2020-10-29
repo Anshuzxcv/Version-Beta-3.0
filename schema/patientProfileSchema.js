@@ -41,10 +41,7 @@ const patientSchema = new mongoose.Schema({
         type: Number,
         default: ""
     },
-    weight: {
-        type: Number,
-        default: ""
-    },
+    weight: [{type: Number}],
     status: {
         type: String,
         default: "inactive"
